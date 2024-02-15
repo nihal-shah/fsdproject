@@ -1,0 +1,15 @@
+.footer{
+    display: flex;
+    width: 100%;
+    position: relative;
+    bottom: 0px;
+    flex-direction: row;
+    background-color: #EEEEEE;
+    justify-content: center;
+    align-items: center;
+    height: 20px;
+}
+.footer_para{
+    font-family: 'Times New Roman', Times, serif;
+    color: black;
+}

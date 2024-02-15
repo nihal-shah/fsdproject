@@ -1,0 +1,12 @@
+.profile_image{
+    size: 50px 50px;
+    border-radius: 100px;
+    position: relative;
+    left: 20px;
+    margin: 10px 5px;
+    background-color: #EEEEEE;
+}
+.Profile{
+    background-color: #393E46;
+    height: 590px;
+}

@@ -1,0 +1,47 @@
+.blog{
+    position:relative;
+    border-radius: 5px;
+    border-color:black;
+    padding: 5px 5px;
+    margin: 5px 0px;
+    display: flex;
+    flex-direction: row;
+    width: 500px;
+    background-color: #EEEEEE;
+    align-items: center;
+    justify-content: center;
+}
+.blog:hover{
+    scale: 1.05;
+}
+.image_blog{
+    width: 150px;
+    height: 100px;
+    position: relative;
+    left: 0px;
+    background-color: #EEEEEE;
+}
+
+.childdiv{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 5px 5px;
+    background-color: #EEEEEE;
+    margin: 2px 4px;
+}
+
+.title{
+    height: 20px;
+    background-color: #EEEEEE;
+    font-family: 'Times New Roman', Times, serif;
+    margin: 2px 5px;
+    font-weight: bold;
+}
+
+.content{
+    background-color: #EEEEEE;
+    font-family: 'Times New Roman', Times, serif;
+    margin: 2px 5px;
+    text-align: justify;
+}

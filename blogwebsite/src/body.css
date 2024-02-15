@@ -1,0 +1,12 @@
+.BodyDiv{
+    background-color: #393E46;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px 0px;
+}
+.linkreact{
+    text-decoration: none;
+    color: black;
+}

@@ -1,0 +1,81 @@
+img{
+    width: 35px;
+    height: 35px;
+    background-color: #222831;
+    
+}
+#logo{
+    background-color: #222831;
+}
+.Container{
+    display: flex;
+    align-items: center;
+    background-color: #222831;
+    font-family:'Times New Roman', Times, serif;
+}
+
+.Container > div{
+    margin: 0px;
+    padding: 0px 20px
+} 
+
+.userlog {
+    display: flex;
+    right: 0px;
+    position: absolute;
+    margin: 0px;
+    align-items: center;
+    height: 39px;
+    background-color: #222831;
+
+}
+
+.link{
+    color: #EEEEEE;
+    text-decoration: none;
+    align-items: center;
+    background-color: #222831;
+}
+
+
+.userlog:hover{
+    background-color: #00ADB5;
+}
+
+.link:hover{
+
+    background-color: #00ADB5;
+}
+
+
+.rightnav{
+    display: flex;
+    flex-direction: row;
+}
+
+.topnav {
+    background-color: #222831;
+    overflow: hidden;
+  }
+  
+  /* Style the links inside the navigation bar */
+  .topnav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+  
+  /* Change the color of links on hover */
+  .topnav a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+  
+  /* Add a color to the active/current link */
+  .topnav a.active {
+    background-color: black;
+    color: white;
+  }
