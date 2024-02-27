@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,13 +26,29 @@ public class MainController {
     }
 
     @PostMapping(path="/login", consumes = "application/json")
-    public @ResponseBody String login(@RequestBody User user) {
+    public ResponseEntity<LoginResponse> login(@RequestBody User user) {
         if(userRepository.existsByEmail(user.getEmail())){
             if(userRepository.password(user.getEmail()).equals(user.getPassword())){
-                return "success";
+                return ResponseEntity.ok(new LoginResponse("success"));
             }
-            return "pass incorrect";
+            return ResponseEntity.ok(new LoginResponse("pass incorrect"));
         }
-        return "email incorrect";
+        return ResponseEntity.ok(new LoginResponse("email incorrect"));
+    }
+
+    static class LoginResponse {
+        private String message;
+
+        public LoginResponse(String message) {
+            this.message = message;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+
+        public void setMessage(String message) {
+            this.message = message;
+        }
     }
 }
