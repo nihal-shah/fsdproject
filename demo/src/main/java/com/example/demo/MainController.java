@@ -12,17 +12,26 @@ public class MainController {
     private UserRepository userRepository;
 
 
-    @PostMapping(path="/signup")
+    @PostMapping(path="/signup", consumes = "application/json")
     public  @ResponseBody String signup(@RequestBody User user) {
         // Check if a user with the same email already exists
         if (userRepository.existsByEmail(user.getEmail())) {
             return ("User with this email already exists");
         }
-
         // If the email doesn't exist, save the user
         userRepository.save(user);
 
         return "success";
     }
 
+    @PostMapping(path="/login", consumes = "application/json")
+    public @ResponseBody String login(@RequestBody User user) {
+        if(userRepository.existsByEmail(user.getEmail())){
+            if(userRepository.password(user.getEmail()).equals(user.getPassword())){
+                return "success";
+            }
+            return "pass incorrect";
+        }
+        return "email incorrect";
+    }
 }
