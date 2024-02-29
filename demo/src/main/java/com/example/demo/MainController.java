@@ -1,5 +1,8 @@
 package com.example.demo;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -26,23 +29,28 @@ public class MainController {
     }
 
     @PostMapping(path="/login", consumes = "application/json")
-    public ResponseEntity<LoginResponse> login(@RequestBody User user) {
+    public ResponseEntity<RequestResponse> login(@RequestBody User user, HttpSession session) {
         if(userRepository.existsByEmail(user.getEmail())){
             if(userRepository.password(user.getEmail()).equals(user.getPassword())){
-                return ResponseEntity.ok(new LoginResponse("success"));
+
+
+                user.setName(userRepository.findName(user.getEmail()));
+                session.setAttribute(user.getEmail(),user.getName());
+                System.out.println((String) session.getAttribute(user.getEmail()));
+                return ResponseEntity.ok(new RequestResponse("success"));
             }
-            return ResponseEntity.ok(new LoginResponse("pass incorrect"));
+            return ResponseEntity.ok(new RequestResponse("pass incorrect"));
         }
-        return ResponseEntity.ok(new LoginResponse("email incorrect"));
+        return ResponseEntity.ok(new RequestResponse("email incorrect"));
     }
 
-    static class LoginResponse {
+    static class RequestResponse {
         private String message;
 
-        public LoginResponse(String message) {
+
+        public RequestResponse(String message) {
             this.message = message;
         }
-
         public String getMessage() {
             return message;
         }
@@ -50,5 +58,21 @@ public class MainController {
         public void setMessage(String message) {
             this.message = message;
         }
+    }
+
+    @GetMapping("/getDetails")
+    public ResponseEntity<RequestResponse> getData(@RequestBody User user,HttpServletRequest request, HttpServletResponse response) {
+
+        HttpSession session=request.getSession(false);
+        String username = (String) session.getAttribute(user.getEmail());
+        return ResponseEntity.ok(new RequestResponse(username));
+    }
+
+    @GetMapping("/logout")
+    public ResponseEntity<RequestResponse> logout(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session=request.getSession(false);
+        session.invalidate();
+        return ResponseEntity.ok(new RequestResponse("logged_out"));
+
     }
 }

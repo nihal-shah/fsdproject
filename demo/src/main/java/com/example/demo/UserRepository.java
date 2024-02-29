@@ -12,4 +12,7 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     boolean existsByEmail(String email);
     @Query("SELECT u.password FROM User u WHERE u.email = ?1")
     String password( String email);
+
+    @Query("SELECT u.name FROM User u WHERE u.email=?1")
+    String findName(String email);
 }
