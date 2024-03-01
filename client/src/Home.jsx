@@ -3,26 +3,11 @@ import {useState,useEffect} from "react";
 
 function Home(){
     const location = useLocation();
-    const [username,setUsername]= useState();
-    useEffect(() => {
-        fetch("http://localhost:4000/demo/getDetails",{
-            method:"POST",
-            body:JSON.stringify({token: location.state.token})
-        })
-            .then(response => response.json())
-            .then(data=>{
-                setUsername(data.message);
-            })
-            .catch(error => {
-                console.log("Error: " + error.message);
-            });
-
-    }, []);
-
+    const [email,setEmail]=useState(location.state);
 
     return(
         <div>
-            <h1>Hello {username}</h1>
+            <h1>Hello {email}</h1>
         </div>
     );
 }

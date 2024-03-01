@@ -39,7 +39,7 @@ function Login(){
                         autoClose: 3000,
                         hideProgressBar: true,
                     })
-                    navigate("/home",{state:{email: {email}}});
+                    navigate("/home",{state:email});
                 }
             })
             .catch(error => {

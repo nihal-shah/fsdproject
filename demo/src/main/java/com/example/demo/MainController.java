@@ -29,14 +29,10 @@ public class MainController {
     }
 
     @PostMapping(path="/login", consumes = "application/json")
-    public ResponseEntity<RequestResponse> login(@RequestBody User user, HttpSession session) {
+    public ResponseEntity<RequestResponse> login(@RequestBody User user) {
         if(userRepository.existsByEmail(user.getEmail())){
             if(userRepository.password(user.getEmail()).equals(user.getPassword())){
-
-
                 user.setName(userRepository.findName(user.getEmail()));
-                session.setAttribute(user.getEmail(),user.getName());
-                System.out.println((String) session.getAttribute(user.getEmail()));
                 return ResponseEntity.ok(new RequestResponse("success"));
             }
             return ResponseEntity.ok(new RequestResponse("pass incorrect"));
@@ -60,13 +56,6 @@ public class MainController {
         }
     }
 
-    @GetMapping("/getDetails")
-    public ResponseEntity<RequestResponse> getData(@RequestBody User user,HttpServletRequest request, HttpServletResponse response) {
-
-        HttpSession session=request.getSession(false);
-        String username = (String) session.getAttribute(user.getEmail());
-        return ResponseEntity.ok(new RequestResponse(username));
-    }
 
     @GetMapping("/logout")
     public ResponseEntity<RequestResponse> logout(HttpServletRequest request, HttpServletResponse response) {
