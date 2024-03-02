@@ -1,0 +1,23 @@
+.ulHeader{
+    background-color: #282c34;
+    display: flex;
+    flex-direction: row;
+    margin: 0px;
+    padding: 0px;
+}
+.LinkHeader{
+    color: white;
+    text-decoration: none;
+
+}
+.liHeader{
+    list-style: none;
+}
+.liHeader:hover .LinkHeader:hover{
+    background-color: #00ADB5;
+    color: #222831;
+}
+
+.liHeader .LinkHeader{
+    padding: 2px 5px;
+}

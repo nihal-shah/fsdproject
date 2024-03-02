@@ -1,5 +1,6 @@
 import { useLocation } from 'react-router-dom';
 import {useState,useEffect} from "react";
+import Header from "./Header";
 
 function Home(){
     const location = useLocation();
@@ -7,6 +8,7 @@ function Home(){
 
     return(
         <div>
+            <Header validemail={email}/>
             <h1>Hello {email}</h1>
         </div>
     );
