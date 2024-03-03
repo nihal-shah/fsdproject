@@ -3,6 +3,7 @@ import { Form, Label, Input, FormGroup, Button } from "reactstrap";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useLocation, useNavigate } from 'react-router-dom';
+import Header from "./Header";
 
 function CreateBlog() {
     const navigate = useNavigate();
@@ -10,6 +11,7 @@ function CreateBlog() {
     const [email] = useState(location.state); // If email is not changing, you can directly use it in the fetch
     const [title, setTitle] = useState("");
     const [body, setBody] = useState("");
+    const [category,setCategory]=useState("");
     const [image, setImage] = useState(null);
     console.log("create blog: "+email);
     const submitForm = (e) => {
@@ -19,7 +21,7 @@ function CreateBlog() {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ blog: { title: title, body: body }, email: email }),
+            body: JSON.stringify({ blog: { title: title, body: body,category:category }, email: email }),
         })
             .then(response => response.json())
             .then(data => {
@@ -45,7 +47,7 @@ function CreateBlog() {
             .then(data => {
                 console.log('Image uploaded: ', data);
                 toast.success('Blog created and Image uploaded successfully!');
-                navigate('/path-to-redirect');
+                navigate("/home",{state:email});
             })
             .catch(error => {
                 console.error('Error uploading image:', error);
@@ -54,6 +56,7 @@ function CreateBlog() {
 
     return (
         <div>
+            <Header validemail={email}/>
             <Form style={{ width: "900px", marginTop: "50px", marginLeft: "280px" }}>
                 <h1>Create new Blog</h1>
                 <br></br>
@@ -64,6 +67,10 @@ function CreateBlog() {
                 <FormGroup>
                     <Label for="body">Body</Label>
                     <Input id="body" placeholder="Write your body" name="body" type="textarea" onChange={(e) => setBody(e.target.value)} />
+                </FormGroup>
+                <FormGroup>
+                    <Label for="category">Category</Label>
+                    <Input id="category" placeholder="category" name="category" type="input" onChange={(e) => setCategory(e.target.value)}/>
                 </FormGroup>
                 <FormGroup>
                     <Label for="image">Upload Event Image</Label>

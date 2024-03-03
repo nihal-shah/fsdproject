@@ -15,30 +15,25 @@ function Login(){
         fetch("http://localhost:4000/demo/login", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json",  // Set the Content-Type header to application/json
+                "Content-Type": "application/json",
             },
             body: JSON.stringify({email, password}),
         })
             .then(response => response.json())
             .then(data => {
                 if (data.message === "pass incorrect") {
-                    toast("incorrect password", {
-                        position: "top-center",
-                        autoClose: 3000,
-                        hideProgressBar: true,
-                    });
-                } else if (data.message === "email incorrect") {
-                    toast("email not exist", {
-                        position: "top-center",
-                        autoClose: 3000,
-                        hideProgressBar: true,
-                    });
-                } else if (data.message === "success") {
-                    toast("successfull login", {
+                    toast.error("incorrect password", {
                         position: "top-center",
                         autoClose: 3000,
                         hideProgressBar: true,
                     })
+                } else if (data.message === "email incorrect") {
+                    toast.error("email not exist", {
+                        position: "top-center",
+                        autoClose: 3000,
+                        hideProgressBar: true,
+                    })
+                } else if (data.message === "success") {
                     navigate("/home",{state:email});
                 }
             })

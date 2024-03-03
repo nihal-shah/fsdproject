@@ -10,7 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Controller
 @RequestMapping(path="/demo")
@@ -31,6 +34,24 @@ public class MainController {
         userRepository.save(user);
 
         return "success";
+    }
+    @GetMapping("/displayblogs")
+    public ResponseEntity<List<Blog>> getBlogs() {
+        List<Blog> blogs = blogRepository.findAll();
+        System.out.println(blogs);
+        return new ResponseEntity<>(blogs, HttpStatus.OK);
+    }
+    @GetMapping("/displayblogsStockMarket")
+    public ResponseEntity<List<Blog>> getBlogsStockMarket() {
+        List<Blog> blogs = blogRepository.findcategory("stockmarket");
+        System.out.println(blogs);
+        return new ResponseEntity<>(blogs, HttpStatus.OK);
+    }
+    @GetMapping("/displayblogsCricket")
+    public ResponseEntity<List<Blog>> getBlogsCricket() {
+        List<Blog> blogs = blogRepository.findcategory("cricket");
+        System.out.println(blogs);
+        return new ResponseEntity<>(blogs, HttpStatus.OK);
     }
 
     @PostMapping(path="/login", consumes = "application/json")
@@ -56,14 +77,14 @@ public class MainController {
         public void setId(int id) {
             this.id = id;
         }
-
+        public RequestResponse(String message) {
+            this.message = message;
+        }
         public RequestResponse(String message, int id) {
             this.message = message;
             this.id = id;
         }
-        public RequestResponse(String message) {
-            this.message = message;
-        }
+
         public String getMessage() {
             return message;
         }

@@ -5,6 +5,8 @@ import Home from "./Home"
 import React from "react";
 import {Routes,Route} from "react-router-dom"
 import CreateBlog from "./CreateBlog";
+import Cricket from "./Cricket";
+import Stockmarket from "./stockmarket";
 function App() {
   return (
     <div>
@@ -12,6 +14,8 @@ function App() {
           <Route path="login" element={<Login/>}/>
           <Route path="home" element={<Home/>}/>
           <Route path="createpost" element={<CreateBlog/>}/>
+          <Route path="cricket" element={<Cricket/>}/>
+          <Route path="stockmarket" element={<Stockmarket/>}/>
       </Routes>
     </div>
   );
