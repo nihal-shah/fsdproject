@@ -17,9 +17,8 @@ import {
 function Blog(props) {
     const navigate = useNavigate();
     const id  = props.id;
-    const [email,setEmail]=useState();
+    const [email,setEmail]=useState(props.email);
     const handleview = () => {
-            setEmail(props.email);
             navigate(`/fullblog/${id}`,{state:email});
 
     };

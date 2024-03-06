@@ -10,10 +10,11 @@ function Fullblog() {
     const[blogbody,setBlogbody]=useState(null);
     const[blogimage,setBlogimage]=useState(null);
     const { id } = useParams();
-    const [email, setEmail] = useState("");
+    const [email, setEmail] = useState();
     const location = useLocation();
 
     useEffect(() => {
+        setEmail(location.state);
         async function fetchData() {
             try {
                 const response = await fetch(`http://localhost:4000/demo/blog/${id}`);
@@ -49,7 +50,7 @@ function Fullblog() {
                                 <CardTitle tag="h3">{blogtitle}</CardTitle>
                                 <CardTitle tag="h3">{blogbody}</CardTitle>
                                 <div className="d-flex justify-content-end">
-                                    {email === "n@gmail.com" ? <Button color="like" className="Button">like</Button> : null}
+                                    <Button color="like" className="Button">like</Button>
                                 </div>
                             </CardBody>
                         </Card>
