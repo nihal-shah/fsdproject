@@ -5,6 +5,7 @@ import { ToastContainer } from "react-toastify";
 import { Button, Card, CardBody, CardColumns, CardImg, CardTitle } from "reactstrap";
 
 function Fullblog() {
+    const[like,setLike]=useState(false);
     const[blogid,setBlogid]=useState(null);
     const[blogtitle,setBlogtitle]=useState(null);
     const[blogbody,setBlogbody]=useState(null);
@@ -12,7 +13,7 @@ function Fullblog() {
     const { id } = useParams();
     const [email, setEmail] = useState();
     const location = useLocation();
-
+    const [blogs  ,setBlogs]=useState([]);
     useEffect(() => {
         setEmail(location.state);
         async function fetchData() {
@@ -27,9 +28,43 @@ function Fullblog() {
                 console.error('Error fetching data:', error);
             }
         }
+        async function fetchLike(){
+            try{
+                const response = await fetch(`http://localhost:4000/demo/blog/${id}/${email}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+                const data = await response.json();
+                if(data.equals("Already Liked")||data.equals("Liked")){
+                    setLike(true);
+                }
+            }catch (error) {
+                console.error('Error fetching like:', error);
+            }
+        }
 
         fetchData();
+        fetchLike();
     }, [id]);
+
+    async function fetchLike(){
+        try{
+            const response = await fetch(`http://localhost:4000/demo/blog/${id}/${email}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            const data = await response.json();
+            if(data.equals("Already Liked")||data.equals("Liked")){
+                setLike(true);
+            }
+        }catch (error) {
+            console.error('Error fetching like:', error);
+        }
+    }
 
     return (
                 <div className="d-flex justify-content-center mt-5">
@@ -50,7 +85,7 @@ function Fullblog() {
                                 <CardTitle tag="h3">{blogtitle}</CardTitle>
                                 <CardTitle tag="h3">{blogbody}</CardTitle>
                                 <div className="d-flex justify-content-end">
-                                    <Button color="like" className="Button">like</Button>
+                                    {like?<Button className="Button" color="success" onClick={fetchLike}>like</Button>:<Button className="Button" onClick={fetchLike}>like</Button>}
                                 </div>
                             </CardBody>
                         </Card>
