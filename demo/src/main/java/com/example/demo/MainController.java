@@ -140,6 +140,31 @@ public class MainController {
         return new ResponseEntity<>(data, HttpStatus.OK);
     }
 
+    @GetMapping("/blog/{id}")
+    public ResponseEntity<Blog> getBlogbyId(@PathVariable String id) {
+        Integer blogId = Integer.parseInt(id);
+
+        if (blogRepository.existsById(blogId)) {
+            Blog b = blogRepository.findById(blogId).orElse(null);
+            return new ResponseEntity<>(b, HttpStatus.OK);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<RequestResponse> deletekarsale(@PathVariable String id){
+        Integer blogId = Integer.parseInt(id);
+
+        if (blogRepository.existsById(blogId)) {
+            Blog b = blogRepository.findById(blogId).orElse(null);
+            blogRepository.delete(b);
+
+            return ResponseEntity.ok(new RequestResponse("Blog deleted successfully"));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @GetMapping("/logout")
     public ResponseEntity<RequestResponse> logout(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session=request.getSession(false);

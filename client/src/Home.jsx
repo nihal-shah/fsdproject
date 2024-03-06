@@ -7,7 +7,7 @@ import Blog from "./Blog";
 function Home(){
     const location = useLocation();
     const [email,setEmail]=useState("");
-    const [blogs,setBlogs]=useState([]);
+    const [blogs  ,setBlogs]=useState([]);
     useEffect(()=>{
         setEmail(location.state);
         // toast.success("successfull login", {
@@ -40,7 +40,6 @@ function Home(){
                     key ={blog.id}
                     id={blog.id}
                     title={blog.title}
-                    body={blog.body}
                     image={blog.image}
                     email={email}
                 />
