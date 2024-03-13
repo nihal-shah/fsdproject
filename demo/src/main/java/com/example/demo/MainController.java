@@ -157,8 +157,13 @@ public class MainController {
 
         if (blogRepository.existsById(blogId)) {
             Blog b = blogRepository.findById(blogId).orElse(null);
-            blogRepository.delete(b);
+            List<User> users=b.getUserlikeblog();
+            for(User u: users){
+                List<Blog> likeblogofuser=u.getBlog();
+                likeblogofuser.remove(b);
 
+            }
+            blogRepository.delete(b);
             return ResponseEntity.ok(new RequestResponse("Blog deleted successfully"));
         } else {
             return ResponseEntity.notFound().build();
