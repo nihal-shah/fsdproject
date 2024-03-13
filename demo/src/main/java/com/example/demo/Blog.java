@@ -1,9 +1,9 @@
 package com.example.demo;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class Blog {
@@ -48,6 +48,17 @@ public class Blog {
 
     public void setImage(String image) {
         this.image = image;
+    }
+    @ManyToMany(cascade = CascadeType.PERSIST, mappedBy ="blog")
+    @JsonIgnore
+    List<User> userlikeblog;
+
+    public List<User> getUserlikeblog() {
+        return userlikeblog;
+    }
+
+    public void setUserlikeblog(List<User> userlikeblog) {
+        this.userlikeblog = userlikeblog;
     }
 
     @Override

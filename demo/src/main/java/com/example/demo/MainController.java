@@ -172,4 +172,45 @@ public class MainController {
         return ResponseEntity.ok(new RequestResponse("logged_out"));
 
     }
+
+    @PostMapping("/bloglikes/{id}/{email}")
+    public ResponseEntity<RequestResponse> likeblog(@PathVariable String email, @PathVariable String id){
+        User u = userRepository.getuser(email);
+        Blog b= blogRepository.findByblogid(Integer.parseInt(id));
+        List<Blog> ulikeblog=u.getBlog();
+        if(ulikeblog.contains(b)){
+            ulikeblog.remove(b);
+            u.setBlog(ulikeblog);
+            userRepository.save(u);
+            return ResponseEntity.ok(new RequestResponse("like remove"));
+        }
+        else{
+            ulikeblog.add(b);
+            u.setBlog(ulikeblog);
+            userRepository.save(u);
+            return ResponseEntity.ok(new RequestResponse("like added"));
+        }
+
+    }
+
+    @GetMapping("/getlikeblog/{email}")
+    public ResponseEntity<List<Blog>> getlikeblogforuser(@PathVariable String email){
+        User u = userRepository.getuser(email);
+        List<Blog> ulikeblog=u.getBlog();
+        return new ResponseEntity<>(ulikeblog, HttpStatus.OK);
+    }
+    @GetMapping("/getlikeblog/{id}/{email}")
+    public ResponseEntity<RequestResponse> isbloglike(@PathVariable String email,@PathVariable String id){
+        int blogid= Integer.parseInt(id);
+        User u = userRepository.getuser(email);
+        List<Blog> ulikeblog=u.getBlog();
+        for(Blog b:ulikeblog){
+            if(b.getId()==blogid){
+                return ResponseEntity.ok(new RequestResponse("exist"));
+            }
+            break;
+        }
+        return ResponseEntity.ok(new RequestResponse("not exist"));
+    }
+
 }

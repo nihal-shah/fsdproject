@@ -1,9 +1,9 @@
 package com.example.demo;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class User {
@@ -45,5 +45,16 @@ public class User {
         this.email = email;
     }
 
+    public List<Blog> getBlog() {
+        return blog;
+    }
 
+    public void setBlog(List<Blog> blog) {
+        this.blog = blog;
+    }
+
+    @ManyToMany
+    @JsonIgnore
+    @JoinTable(name="blog_to_user")
+    List<Blog> blog;
 }
