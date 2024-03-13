@@ -25,15 +25,15 @@ public class MainController {
     @Autowired
     private  BlogRepository blogRepository;
     @PostMapping(path="/signup", consumes = "application/json")
-    public  @ResponseBody String signup(@RequestBody User user) {
+    public  @ResponseBody ResponseEntity<RequestResponse> signup(@RequestBody User user) {
 
         if (userRepository.existsByEmail(user.getEmail())) {
-            return ("User with this email already exists");
+            return ResponseEntity.ok(new RequestResponse("User with this email already exists"));
+
         }
 
         userRepository.save(user);
-
-        return "success";
+        return ResponseEntity.ok(new RequestResponse("success"));
     }
     @GetMapping("/displayblogs")
     public ResponseEntity<List<Blog>> getBlogs() {

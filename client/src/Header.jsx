@@ -13,8 +13,10 @@ function Header(props){
                     <li className="liHeader"><Link to="/createpost" state={email} className="LinkHeader">UPLOAD</Link>
                     </li> : null}
                 <li className="liHeader"><Link to="/cricket" className="LinkHeader" state={email}>CRICKET</Link></li>
-                <li className="liHeader"><Link to="/stockmarket" className="LinkHeader" state={email}>STOCK MARKTE</Link></li>
-                <li className="liHeader"><Link to="/logout" className="LinkHeader">LOGOUT</Link></li>
+                <li className="liHeader"><Link to="/stockmarket" className="LinkHeader" state={email}>STOCK
+                    MARKTE</Link></li>
+                <li className="liHeader"><Link to="/Like" className="LinkHeader" state={email}>YOUR LIKE</Link></li>
+                <li className="liHeader"><Link to="/login" className="LinkHeader">LOGOUT</Link></li>
             </ul>
         </div>
     );
